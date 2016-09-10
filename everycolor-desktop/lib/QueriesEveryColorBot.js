@@ -8,6 +8,8 @@ let client = new Twitter({
     access_token_secret: credentials.twitter.access_token_secret
 })
 
+
+
 function listenForLatestTweet(){
     console.log("here's the latest tweet")
 }

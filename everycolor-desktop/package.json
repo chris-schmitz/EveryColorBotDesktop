@@ -2,7 +2,7 @@
   "name": "everycolor-desktop",
   "version": "1.0.0",
   "description": "A simple desktop tool to set your desktop background per the twitter account everycolorbot's tweets.",
-  "main": "app/index.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

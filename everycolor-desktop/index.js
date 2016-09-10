@@ -2,37 +2,43 @@
 const desktopImageCreator = require('./lib/CreatesDesktopImages')
 const desktopSetter = require('./lib/SetsDesktopImages')
 const Twitter = require('twitter')
-const credentials = require('./credentials')
+const credentials = require('./config').credentials
 const chalk = require('chalk')
 
-let client = new Twitter({
-    consumer_key: credentials.twitter.consumer_key,
-    consumer_secret: credentials.twitter.consumer_secret,
-    access_token_key: credentials.twitter.access_token_key,
-    access_token_secret: credentials.twitter.access_token_secret
-})
+// let client = new Twitter({
+//     consumer_key: credentials.twitter.consumer_key,
+//     consumer_secret: credentials.twitter.consumer_secret,
+//     access_token_key: credentials.twitter.access_token_key,
+//     access_token_secret: credentials.twitter.access_token_secret
+// })
 
-let stream = client.stream('statuses/filter', {
-    follow: '243730082,1909219404'
-})
+// let stream = client.stream('statuses/filter', {
+//     follow: '243730082,1909219404'
+// })
 
-stream.on('data', event => {
-    let tweet = event.text.match(/^0x[\w\d]{6}(?=\s)/)
+let event = {text: '0x189995 https://t.co/JvUtSZj15s'}
+
+// stream.on('data', event => {
+    let tweet = event.text.match(/^(0x[a-f\d]{6})\s(https:[/\w\d./]+)$/)
     if(tweet){
-        console.log(chalk.green(`we got a color from the bot: ${tweet[0]}`))
+        console.log(chalk.green(`we got a color from the bot!: ${tweet[0]}`))
+
+        let color = tweet[1]
+        let link = tweet[2]
+
+        let filename = desktopImageCreator.createImageForColor(color)
+        desktopSetter.setDesktopBackground(filePath) // consider coming back and adding the config for which monitor
+        // notifier.notifyUser({message: `New desktop color set: ${color}. `, clickthroughLink: ${link}})
     } else {
         console.log(chalk.red(`we got something other than a tweet from the bot: ${event.text}`))
     }
+// })
 
-})
-
-stream.on('error', error => {
-    console.error(error)
-})
-
+// stream.on('error', error => {
+//     console.error(error)
+// })
 
 
 
-// let color = everyColorBot.getLatestColor()
-// let filename = desktopImageCreator.createImageForColor(color)
+
 // desktopSetter.setDesktopBackground(filename)

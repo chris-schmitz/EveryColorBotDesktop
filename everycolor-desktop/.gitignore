@@ -1,2 +1,4 @@
-credentials.js
+config.js
 node_modules
+pngWorkspace/*.png
+!pngWorkspace/base.png
