@@ -5,22 +5,29 @@ const twitterApi = new Twitter(twitterCredentials.consumerKey, twitterCredential
     console.log(arguments)
 })
 
+let getLatestTweet = function(screenName){
+    return new Promise(function(resolve,reject){
+        twitterApi.getLatestTweets(screenName, 1, twitterCredentials.accessToken, twitterCredentials.accessTokenSecret, (error, result) => {
+            if (error) {
+                reject(error)
+            }
+            if (result) {
+                let tweet = JSON.parse(result)[0] // outputs an array of json objects
+                resolve(tweet)
+            }
+        })
+    })
 
-twitterApi.getUsersTweets('everycolorbot', 1, twitterCredentials.accessToken, twitterCredentials.accessTokenSecret, (error, result) => {
-    if (error) {
-        console.error(error)
-    }
-    if (result) {
-        console.log('got result')
-        let tweet = JSON.parse(result)[0] // outputs an array of json objects
-        return tweet
-    }
-})
+}
+
 
 function getColorAndLink(tweet){
     const expression = /^0x([\w\d]{6})\s([\w\d:/].*)/
-    if(!expression.test(tweet)){
+    let text = tweet.text
+    if(!expression.test(text)){
         return {color: null, link: null}
     }
-    return {color: expression.exec(tweet)[1], link: expression.exec(tweet)[2]}
+    return {color: expression.exec(text)[1], link: expression.exec(text)[2]}
 }
+
+getLatestTweet('everycolorbot').then(tweet => console.log(getColorAndLink(tweet))).catch((error) => {console.log(error)})
