@@ -4,6 +4,7 @@ const desktopSetter = require('./lib/SetsDesktopImages')
 const Twitter = require('twitter')
 const credentials = require('./config').credentials
 const chalk = require('chalk')
+let desktopNumbers = require('./config').desktopNumbers
 
 // let client = new Twitter({
 //     consumer_key: credentials.twitter.consumer_key,
@@ -19,6 +20,7 @@ const chalk = require('chalk')
 let event = {text: '0x189995 https://t.co/JvUtSZj15s'}
 
 // stream.on('data', event => {
+    // put all of this in a try/throw/catch?
     let tweet = event.text.match(/^(0x[a-f\d]{6})\s(https:[/\w\d./]+)$/)
     if(tweet){
         console.log(chalk.green(`we got a color from the bot!: ${tweet[0]}`))
@@ -26,8 +28,9 @@ let event = {text: '0x189995 https://t.co/JvUtSZj15s'}
         let color = tweet[1]
         let link = tweet[2]
 
-        let filename = desktopImageCreator.createImageForColor(color)
-        desktopSetter.setDesktopBackground(filePath) // consider coming back and adding the config for which monitor
+        // let filename = desktopImageCreator.createImageForColor(color)
+        desktopSetter.setDesktopBackground(filePath, desktopNumbers) // consider coming back and adding the config for which monitor
+
         // notifier.notifyUser({message: `New desktop color set: ${color}. `, clickthroughLink: ${link}})
     } else {
         console.log(chalk.red(`we got something other than a tweet from the bot: ${event.text}`))
