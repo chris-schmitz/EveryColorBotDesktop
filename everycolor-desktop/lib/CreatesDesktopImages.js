@@ -34,6 +34,12 @@ function hexToRgb(hex){
     }
 }
 
+/**
+ * Creates a png file for a single given color
+ * @param  {object} rgb      An object containing rgb values to use
+ *                               e.g. {r: 1, g: 2, b: 5}
+ * @param  {string} filename The name to use for the png file created
+ */
 function createPNG(rgb, filename){
     let filterMethod = 4
     let filePath
