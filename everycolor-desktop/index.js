@@ -1,10 +1,12 @@
 // const everyColorBot = require('./lib/QueriesEveryColorBot')
 const desktopImageCreator = require('./lib/CreatesDesktopImages')
 const desktopSetter = require('./lib/SetsDesktopImages')
+const notifications = require('./lib/NotifiesUser')
 const Twitter = require('twitter')
-const credentials = require('./config').credentials
 const chalk = require('chalk')
+const credentials = require('./config').credentials
 let desktopNumbers = require('./config').desktopNumbers
+
 
 // let client = new Twitter({
 //     consumer_key: credentials.twitter.consumer_key,
@@ -29,9 +31,10 @@ let event = {text: '0x189995 https://t.co/JvUtSZj15s'}
         let link = tweet[2]
 
         // let filename = desktopImageCreator.createImageForColor(color)
+        let filePath = "pngWorkspace/0x189995.png"
         desktopSetter.setDesktopBackground(filePath, desktopNumbers) // consider coming back and adding the config for which monitor
+        notifications.notifyUser("Desktop Color Set", `New desktop color set: ${color}.`)
 
-        // notifier.notifyUser({message: `New desktop color set: ${color}. `, clickthroughLink: ${link}})
     } else {
         console.log(chalk.red(`we got something other than a tweet from the bot: ${event.text}`))
     }
