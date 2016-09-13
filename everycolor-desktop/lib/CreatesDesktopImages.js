@@ -10,8 +10,15 @@ const path = require('path')
  */
 function createImageForColor(color = '0x000000'){
     let rgb = hexToRgb(color)
-    let path = createPNG(rgb, `${color}.png`)
+    let path = createPNG(rgb, `${color}.png`, resolve, reject)
     return path
+
+    // I tried to get this working as a promise but I f-ed something up.
+    // return new Promise((resolve,reject) => {
+    //     let rgb = hexToRgb(color)
+    //     let path = createPNG(rgb, `${color}.png`, resolve, reject)
+    //     return path
+    // })
 }
 
 /**
@@ -40,7 +47,7 @@ function hexToRgb(hex){
  *                               e.g. {r: 1, g: 2, b: 5}
  * @param  {string} filename The name to use for the png file created
  */
-function createPNG(rgb, filename){
+function createPNG(rgb, filename, resolve, reject){
     let filterMethod = 4
     let filePath
 
@@ -77,7 +84,13 @@ function createPNG(rgb, filename){
 
     // I don't think this process is going to work :|
     stream.on('close', function (){
+        // resolve(filePath)
         return filePath
+    })
+
+    stream.on('error', function (){
+        // reject(new Error("error creating image"))
+        console.error('error creating image')
     })
 }
 

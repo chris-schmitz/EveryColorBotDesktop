@@ -2,7 +2,7 @@ const exec = require('child_process').exec
 
 /**
  * Sets the desktop associated with the given number(s) to the given file
- * @param {[type]} filePath      Path to the file
+ * @param {string} filePath      Path to the file
  *                                   Can be either absolute or relative to the project directory
  * @param {Array}  desktopNumber The number or numbers of the desktops you'd like to set the image for
  */
