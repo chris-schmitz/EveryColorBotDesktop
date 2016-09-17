@@ -2,11 +2,23 @@
 
 A desktop background creator/setter that lovingly listens to the @everycolorbot twitter account. 
 
-![demogif]()
+![demogif](readmeAttachments/everycolordesktopinaction.gif)
 
-## What's the point
+_Creating tweets that match the format of tweets sent by @everycolorbot._
+
+## What's this all about?
+
+I _absolutly love_ the [@everycolorbot](https://twitter.com/everycolorbot) twitter account. I love it so much that I want to put those colors to use :)
+
+When you run this little node app it will listen for tweets coming from the bot, create a png file using the tweeted color, and set it as your desktop background. 
+
+At the moment it only works for mac (I'm open to pull requests for Windows and Linux ;) ).
+
+I'm still hammering out some bugs, but for the most part it's functional.
 
 ## Configuration
+
+_I'll be filling this out later today. I have to run to breakfast ;P_
 
 ## What's in this project
 
@@ -22,8 +34,3 @@ That's it. You can totally dive in and understand this!
 And really some of these dependencies are not even necessary, they're just nice to have (i.e. desktop notifications (node-notifier) and colored output for the command line (chalk)). 
 
 Dig a bit. If you have questions ping [me on twitter](https://twitter.com/cschmitz81) and I'll try to help you out.
-
-## Things it still needs
-
-- Linux support
-- Windows support
