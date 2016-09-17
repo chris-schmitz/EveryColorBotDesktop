@@ -9,16 +9,19 @@ const path = require('path')
  * @return {filePath}       The path to the created file
  */
 function createImageForColor(color = '0x000000'){
-    let rgb = hexToRgb(color)
-    let path = createPNG(rgb, `${color}.png`, resolve, reject)
-    return path
 
-    // I tried to get this working as a promise but I f-ed something up.
-    // return new Promise((resolve,reject) => {
-    //     let rgb = hexToRgb(color)
-    //     let path = createPNG(rgb, `${color}.png`, resolve, reject)
-    //     return path
-    // })
+    return new Promise(function (resolve,reject){
+        let rgb = hexToRgb(color)
+        createPNG(rgb, `${color}.png`, function(path) {
+            if(path){
+                resolve(path)
+            } else {
+                reject(new Error('Error creating image.'))
+            }
+        })
+
+    })
+
 }
 
 /**
@@ -47,53 +50,42 @@ function hexToRgb(hex){
  *                               e.g. {r: 1, g: 2, b: 5}
  * @param  {string} filename The name to use for the png file created
  */
-function createPNG(rgb, filename){
+function createPNG(rgb, filename, callback){
 
-    return new Promise(function (resolve,reject){
-        if(1==1) resolve('resolved')
-            reject('rejected')
+    let filterMethod = 4
+    let filePath
+
+    let stream = fs.createReadStream('pngWorkspace/base.png')
+        .pipe(new PNG({
+            filterType: filterMethod
+        }))
+
+    stream.on('parsed', function (){
+        // loop through y axis coordinates from top to bottom
+        for(let y = 0; y < this.height; y++){
+
+            // loop through x axis coordinates from left to right
+            for(let x = 0; x < this.width; x++){
+
+                // Do some bit shifting that I only partially understand at the moment.
+                // Review pngjs' docs for more detail.
+                let idx = (this.width * y+x) << 2
+
+                // The basic idea is that we're walking each pixel from left to right,
+                // top to bottom, and we set the color for the current pixel.
+                // We're trying to create a solid color png, so each pixel will get the
+                // same color.
+                this.data[idx] = rgb.r
+                this.data[idx + 1] = rgb.g
+                this.data[idx + 2] = rgb.b
+
+            }
+        }
+        filePath = appPaths.pngOutput + filename
+        this.pack().pipe(
+            fs.createWriteStream(filePath).on('close', () => callback( filePath) )
+        )
     })
-
-    // return new Promise(function (resolve,reject){
-    //     let filterMethod = 4
-    //     let filePath
-
-    //     let stream = fs.createReadStream('pngWorkspace/base.png')
-    //         .pipe(new PNG({
-    //             filterType: filterMethod
-    //         }))
-
-    //     stream.on('parsed', function (){
-    //         // loop through y axis coordinates from top to bottom
-    //         for(let y = 0; y < this.height; y++){
-
-    //             // loop through x axis coordinates from left to right
-    //             for(let x = 0; x < this.width; x++){
-
-    //                 // Do some bit shifting that I only partially understand at the moment.
-    //                 // Review pngjs' docs for more detail.
-    //                 let idx = (this.width * y+x) << 2
-
-    //                 // The basic idea is that we're walking each pixel from left to right,
-    //                 // top to bottom, and we set the color for the current pixel.
-    //                 // We're trying to create a solid color png, so each pixel will get the
-    //                 // same color.
-    //                 this.data[idx] = rgb.r
-    //                 this.data[idx + 1] = rgb.g
-    //                 this.data[idx + 2] = rgb.b
-
-    //             }
-    //         }
-    //         filePath = appPaths.pngOutput + filename
-    //         this.pack().pipe(fs.createWriteStream(filePath))
-    //     })
-
-    //     // I don't think this process is going to work :|
-    //     stream.on('close', function (){
-    //         resolve(filePath)
-    //         return filePath
-    //     })
-    // })
 }
 
 module.exports = {
