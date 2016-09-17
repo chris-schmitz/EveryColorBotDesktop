@@ -9,9 +9,19 @@ const path = require('path')
  * @return {filePath}       The path to the created file
  */
 function createImageForColor(color = '0x000000'){
-    let rgb = hexToRgb(color)
-    let path = createPNG(rgb, `${color}.png`)
-    return path
+
+    return new Promise(function (resolve,reject){
+        let rgb = hexToRgb(color)
+        createPNG(rgb, `${color}.png`, function(path) {
+            if(path){
+                resolve(path)
+            } else {
+                reject(new Error('Error creating image.'))
+            }
+        })
+
+    })
+
 }
 
 /**
@@ -40,11 +50,11 @@ function hexToRgb(hex){
  *                               e.g. {r: 1, g: 2, b: 5}
  * @param  {string} filename The name to use for the png file created
  */
-function createPNG(rgb, filename){
+function createPNG(rgb, filename, callback){
+
     let filterMethod = 4
     let filePath
 
-    debugger
     let stream = fs.createReadStream('pngWorkspace/base.png')
         .pipe(new PNG({
             filterType: filterMethod
@@ -72,12 +82,9 @@ function createPNG(rgb, filename){
             }
         }
         filePath = appPaths.pngOutput + filename
-        this.pack().pipe(fs.createWriteStream(filePath))
-    })
-
-    // I don't think this process is going to work :|
-    stream.on('close', function (){
-        return filePath
+        this.pack().pipe(
+            fs.createWriteStream(filePath).on('close', () => callback( filePath) )
+        )
     })
 }
 
