@@ -1,4 +1,5 @@
 const exec = require('child_process').exec
+const chalk = require('chalk')
 
 /**
  * Sets the desktop associated with the given number(s) to the given file
@@ -22,7 +23,7 @@ function setDesktopBackground(filePath, desktopNumber = [1]){
         } else {
             // hmm, should we really send a console message at this point? should we just return the
             // status of execution to the caller and let it handle the decision to message or not message?
-            console.log(`Desktop ${desktopNumber} set to use background "${filePath}"`)
+            console.log(chalk.blue(`Desktop ${desktopNumber} set to use background "${filePath}"`))
         }
 
 
