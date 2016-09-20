@@ -9,9 +9,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "chalk": "^1.1.3",
+    "co": "^4.6.0",
     "commander": "^2.9.0"
   },
-  "bin":{
+  "bin": {
     "pickcolor": "./index.js"
   }
 }
