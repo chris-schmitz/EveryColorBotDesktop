@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# source from: https://raw.githubusercontent.com/gnachman/iTerm2/master/tests/imgcat
+
 # tmux requires unrecognized OSC sequences to be wrapped with DCS tmux;
 # <sequence> ST, and for all ESCs in <sequence> to be replaced with ESC ESC. It
 # only accepts ESC backslash for ST.
