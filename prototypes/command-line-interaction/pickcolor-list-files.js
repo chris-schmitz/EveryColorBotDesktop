@@ -29,7 +29,7 @@ co(function *(){
         file => execFile('./imgcat.sh',[`${workspacePath}${file}`],(err,stdout,stderr) => {
             if(err) throw err
 
-            console.log(`${file}`)
+            console.log(`${workspacePath}${file}`)
             console.log(stdout)
         })
     )
