@@ -12,6 +12,7 @@ function notifyUser(title = '', message = '',link = ''){
         notifier.on('click', (notification,options) => {
             open(link)
         })
+        // notifier.on('timeout', (notification, options) => {})
     }
     let wait = link.length > 0 ? true : false
 
