@@ -9,6 +9,8 @@ const chalk = require('chalk')
 const fs = require('fs')
 const co = require('co')
 const workspacePath = path.resolve(__dirname, `../${pngWorkspace}`)
+const usingIterm = process.env.TERM_PROGRAM === 'iTerm.app' ? true : false
+
 
 /**
  * Returns an array of all file names from the configured pngWorkspace
@@ -43,13 +45,15 @@ function justThePngs(filesArray){
 function displayColorFiles(pngs = []){
     pngs.forEach(filename => {
         let filepath = `${workspacePath}/${filename}`
-        console.log(process)
-        // if(process)
-        // execFile(path.resolve(__dirname,'imgcat.sh'), [filepath], (error, stdout, stderr) => {
-        //     if(error) throw new Error(error)
-        //     console.log(filepath)
-        //     console.log(stdout)
-        // })
+        if(usingIterm){
+            execFile(path.resolve(__dirname,'imgcat.sh'), [filepath], (error, stdout, stderr) => {
+                if(error) throw new Error(error)
+                console.log(filepath)
+                console.log(stdout)
+            })
+        } else {
+            console.log(`${filepath}\n`)
+        }
     })
 }
 
