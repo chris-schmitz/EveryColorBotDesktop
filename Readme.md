@@ -16,14 +16,20 @@ At the moment it only works for mac (I'm open to pull requests for Windows and L
 
 I'm still hammering out some bugs, but for the most part it's functional.
 
+## Tools in this project
 
-## What you'll need to run the utility
+- [Everycolorbot Twitter Listener](#everycolorbot-twitter-listener)
+- [pickcolor command line tool](#pickcolor-command-line-tool)
+
+## Everycolorbot Twitter Listener
+
+### What you'll need to run the utility
 
 The requirements for this utility are actually really simple; you'll need [node.js](https://nodejs.org/) to run the utility, `npm` (which is installed when you install node.js) to pull in the dependencies, and [git](https://git-scm.com/) to pull down the repository.
 
 Note that if you run this utility directly with node, you'll need to leave the terminal you run it in open for the utility to listen for tweets. You could also use something like [foreverjs](https://github.com/foreverjs/forever) if you wanted to run it in the background. 
 
-## Pulling down the project
+### Pulling down the project
 
 Open a terminal and `cd` to a directory where you'd like to store the utilities files. Once there run the `git clone` command to pull down the project. Once the project has been cloned, use `npm` to load the project's dependencies:
 
@@ -37,13 +43,13 @@ Open a terminal and `cd` to a directory where you'd like to store the utilities 
 
     # project dependencies are downloaded
 
-### A note about the project structure
+#### A note about the project structure
 
 The actually evercolor-desktop utility itself is all enclosed in the `everycolor-desktop` directory at the root of this repository. You don't actually need anything in the prototypes folder to run it.
 
 The prototypes folder is just a collection of little sections of the overall utility that I put together while figuring out how to turn the concept into reality. I left them in this repository just in case they're helpful to anyone else. 
 
-## Configuration
+### Configuration
 
 To use this utility you'll need to [create a Twitter App](https://apps.twitter.com/) so that you can obtain credentials for the Twitter API. 
 
@@ -62,7 +68,7 @@ In the new `config.js` file, enter your twitter credentials. You can also change
 
 Now that the utility has been configured, let's talk about how to use it. 
 
-## Usage
+### Usage
 
 Using the everycolor-desktop utility is fairly simple. Once you have [node installed](##what-youll-need-to-run-the-utility), [the project cloned, the dependencies downloaded](#pulling-down-the-project), and [the configuration set up](#configuration) you'll just need to run the `everycolor-desktop/index.js` file using node. e.g.:
 
@@ -76,6 +82,26 @@ Once you fire `node index.js` you should see that the utility is listening for t
 ![listening for those sweet tweets!](readmeAttachments/sweetTweets.png)
 
 Now you can just wait for everycolorbot to decide your next desktop color ;)
+
+## `pickcolor` command line tool
+
+![pickcolor demo](readmeAttachments/pickcolorusage.gif)
+
+The `pickcolor` command line tool operates off of the colors captured from the everycolor-desktop Twitter Listener. Colors previously captured can be listed and set as the desktop background. 
+
+### Usage
+
+To list the files previously captured by the twitter listener, open a terminal and type the following command:
+
+    pickcolor list-files
+
+The list of file paths for the colors captured will be displayed. If you use [iTerm2](https://www.iterm2.com/) as your terminal, you will also see the color tile under the file path.
+
+To set the desktop to a particular color file, use the following command:
+
+    pickcolor set-desktop /path/to/the/file.png
+
+This will use the twitter listener tools to set the desktop background and send an OS notification.
 
 ## What's in this project
 

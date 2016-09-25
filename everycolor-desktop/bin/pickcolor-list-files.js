@@ -57,6 +57,10 @@ function displayColorFiles(pngs = []){
     })
 }
 
+/**
+ * Kicks off command process.
+ * @param {generator} Generator function outlining the command process.
+ */
 co(function *(){
     let filesInDirectory = yield getFileList()
     let pngs = justThePngs(filesInDirectory)
