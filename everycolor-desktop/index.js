@@ -41,7 +41,8 @@ let stream = client.stream('statuses/filter', {follow: '243730082,1909219404'}, 
                 let color = tweet[1]
                 let link = tweet[2]
                 let filePath = yield desktopImageCreator.createImageForColor(color)
-                desktopSetter.setDesktopBackground(filePath, desktopNumbers) // consider coming back and adding the config for which monitor
+                let backgroundSetSuccessMessage = yield desktopSetter.setDesktopBackground(filePath, desktopNumbers) // consider coming back and adding the config for which monitor
+                console.log(chalk.green(backgroundSetSuccessMessage))
                 notifications.notifyUser("Desktop Color Set", `New desktop color set: ${color}.`, link)
             }).catch(error => console.error(error))
 

@@ -29,9 +29,9 @@ function fileExists(filepath){
 
 co(function *(){
     let exists = yield fileExists(filepath)
-    let backgroundSet = yield desktop.setDesktopBackground(filepath)
+    let backgroundSetSuccessMessage = yield desktop.setDesktopBackground(filepath)
 
-    console.log(chalk.green(backgroundSet))
+    console.log(chalk.green(backgroundSetSuccessMessage))
 
     let fileName = path.basename(filepath)
     notifier.notifyUser('Desktop Background Set', `Desktop set to ${fileName}`)
