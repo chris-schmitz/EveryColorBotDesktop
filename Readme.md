@@ -16,12 +16,16 @@ At the moment it only works for mac (I'm open to pull requests for Windows and L
 
 I'm still hammering out some bugs, but for the most part it's functional.
 
+&nbsp;
+
 ## Tools in this project
 
 - [Everycolorbot Twitter Listener](#everycolorbot-twitter-listener)
 - [pickcolor command line tool](#pickcolor-command-line-tool)
 
-## Everycolorbot Twitter Listener
+&nbsp;
+
+# Everycolorbot Twitter Listener
 
 ### What you'll need to run the utility
 
@@ -83,13 +87,19 @@ Once you fire `node index.js` you should see that the utility is listening for t
 
 Now you can just wait for everycolorbot to decide your next desktop color ;)
 
-## `pickcolor` command line tool
+&nbsp;
+
+# `pickcolor` command line tool
 
 ![pickcolor demo](readmeAttachments/pickcolorusage.gif)
 
 The `pickcolor` command line tool operates off of the colors captured from the everycolor-desktop Twitter Listener. Colors previously captured can be listed and set as the desktop background. 
 
 ### Usage
+
+Information on how to use the various commands built into `pickcolor` can be viewed by using the command:
+
+    pickcolor --help
 
 To list the files previously captured by the twitter listener, open a terminal and type the following command:
 
@@ -103,7 +113,9 @@ To set the desktop to a particular color file, use the following command:
 
 This will use the twitter listener tools to set the desktop background and send an OS notification.
 
-## What's in this project
+&nbsp;
+
+# What's in this project
 
 I know you can just look through the `package.json` file to see what the top level dependencies for this project are, but to help make this more accessible for people who may be new to node development (similar to myself at the moment), I'd like to point out that the only top level dependencies for this project are:
 
@@ -112,6 +124,7 @@ I know you can just look through the `package.json` file to see what the top lev
 - [Node Notifier](https://www.npmjs.com/package/node-notifier)
 - [Chalk](https://www.npmjs.com/package/chalk)
 - [co](https://github.com/tj/co)
+- [commander](https://github.com/tj/commander.js)
 
 That's it. You can totally dive in and understand this!
 
