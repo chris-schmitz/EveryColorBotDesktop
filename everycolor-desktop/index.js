@@ -66,7 +66,7 @@ let stream = client.stream('statuses/filter', {follow: '243730082,1909219404'}, 
     })
 
     stream.on('error', error => {
-        console.error(chalk.red(error))
+        console.error(chalk.red(new Error(error)))
     })
 })
 
